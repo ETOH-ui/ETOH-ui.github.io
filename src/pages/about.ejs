@@ -1,0 +1,27 @@
+<div class="page-head">
+  <h1 class="page-title"><span class="page-title-mark">#</span> 关于</h1>
+</div>
+
+<div class="about">
+  <aside class="about-card">
+    <img class="about-avatar" src="<%= url(site.avatar) %>" alt="<%= site.author %>" width="120" height="120">
+    <h2 class="about-name"><%= site.author %></h2>
+    <p class="about-tagline"><%= site.title %></p>
+    <ul class="about-facts">
+      <li><span>文章</span><span><%= totalPosts %></span></li>
+      <li><span>标签</span><span><%= totalTags %></span></li>
+    </ul>
+    <a class="about-rss" href="<%= url('/archives/') %>">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><use href="#icon-archive"></use></svg>
+      看看归档
+    </a>
+  </aside>
+
+  <div class="about-body markdown-body">
+    <% if (aboutHtml) { %>
+      <%- aboutHtml %>
+    <% } else { %>
+      <p>这个页面还没有内容。在 <code>src/pages/about.md</code> 里写点什么，重新构建就会出现在这里。</p>
+    <% } %>
+  </div>
+</div>

@@ -1,0 +1,27 @@
+{
+  "name": "eto-blog",
+  "version": "1.0.0",
+  "private": true,
+  "description": "ETOH-ui 的个人博客 —— 自写 Markdown 静态站点生成器",
+  "type": "module",
+  "scripts": {
+    "build": "node scripts/build.js",
+    "dev": "node scripts/build.js --serve",
+    "clean": "node scripts/clean.js"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "dependencies": {
+    "ejs": "^3.1.10",
+    "gray-matter": "^4.0.3",
+    "highlight.js": "^11.10.0",
+    "markdown-it": "^14.1.0",
+    "markdown-it-anchor": "^9.2.0",
+    "markdown-it-footnote": "^4.0.0",
+    "markdown-it-task-lists": "^2.1.1"
+  },
+  "devDependencies": {
+    "sharp": "^0.33.5"
+  }
+}

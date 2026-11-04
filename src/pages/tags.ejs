@@ -1,0 +1,16 @@
+<%
+  const maxCount = allTags.length ? Math.max(...allTags.map(function (t) { return t.count; })) : 1;
+%>
+<div class="page-head">
+  <h1 class="page-title"><span class="page-title-mark">#</span> 标签</h1>
+  <p class="page-desc">共 <%= totalTags %> 个标签，<%= totalPosts %> 篇文章</p>
+</div>
+
+<div class="tag-cloud">
+  <% allTags.forEach(function (tag) { %>
+    <a class="tag-cloud-item" href="<%= url(tag.url) %>" style="--w: <%= (0.35 + 0.65 * (tag.count / maxCount)).toFixed(3) %>">
+      <span class="tag-cloud-name"><%= tag.name %></span>
+      <span class="tag-cloud-count"><%= tag.count %></span>
+    </a>
+  <% }); %>
+</div>

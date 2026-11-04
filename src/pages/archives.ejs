@@ -1,0 +1,29 @@
+<div class="page-head">
+  <h1 class="page-title"><span class="page-title-mark">#</span> 归档</h1>
+  <p class="page-desc">共 <%= totalPosts %> 篇文章，跨越 <%= years.length %> 个年份</p>
+</div>
+
+<div class="archive">
+  <% years.forEach(function (group) { %>
+    <section class="archive-group">
+      <h2 class="archive-year">
+        <span class="archive-year-num"><%= group.year %></span>
+        <span class="archive-year-count"><%= group.posts.length %> 篇</span>
+      </h2>
+
+      <ul class="archive-list">
+        <% group.posts.forEach(function (post) { %>
+          <li class="archive-item">
+            <span class="archive-date"><%= post.dateStr.slice(5) %></span>
+            <a class="archive-link" href="<%= url(post.url) %>"><%= post.title %></a>
+            <span class="archive-tags">
+              <% post.tags.slice(0, 2).forEach(function (t) { %>
+                <span class="tag-chip tag-chip-sm"><%= t %></span>
+              <% }); %>
+            </span>
+          </li>
+        <% }); %>
+      </ul>
+    </section>
+  <% }); %>
+</div>

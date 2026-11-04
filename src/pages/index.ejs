@@ -1,0 +1,14 @@
+<div class="post-list">
+  <% if (!page.posts.length) { %>
+    <div class="empty-state">
+      <p>还没有文章。</p>
+      <p class="empty-hint">在 <code>src/posts/年份/月份/</code> 下新建一个 <code>.md</code> 文件就能生成了。</p>
+    </div>
+  <% } else { %>
+    <% page.posts.forEach(function (post) { %>
+      <%- include('../components/post-card', { post: post }) %>
+    <% }); %>
+  <% } %>
+</div>
+
+<%- include('../components/pagination') %>

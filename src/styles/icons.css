@@ -1,0 +1,74 @@
+/* ==========================================================================
+   图标与光标
+   ========================================================================== */
+
+.svg-sprite {
+  position: absolute;
+  width: 0;
+  height: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+svg {
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  flex-shrink: 0;
+}
+
+/* ---------- 自定义像素光标 ---------- */
+
+html {
+  cursor: var(--cursor-default);
+}
+
+a,
+button,
+[role="button"],
+summary,
+label,
+.page-num,
+.page-nav-text,
+.post-card-link,
+.menu-item,
+.nav-item,
+.tag-chip,
+.tag-cloud-item,
+.friend-card,
+select {
+  cursor: var(--cursor-pointer) !important;
+}
+
+input,
+textarea,
+[contenteditable="true"],
+code,
+kbd,
+pre {
+  cursor: var(--cursor-text) !important;
+}
+
+/* 关闭自定义光标的开关 */
+[data-cursor="off"] {
+  --cursor-default: auto;
+  --cursor-pointer: pointer;
+  --cursor-text: text;
+}
+
+/* 触摸设备不显示自定义光标 */
+@media (hover: none) {
+  html,
+  a,
+  button,
+  input,
+  textarea {
+    cursor: auto !important;
+  }
+  input,
+  textarea {
+    cursor: text !important;
+  }
+}

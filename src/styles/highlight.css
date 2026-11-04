@@ -1,0 +1,94 @@
+/* ==========================================================================
+   代码高亮（highlight.js 类名 → 主题变量）
+   ========================================================================== */
+
+.hljs-comment,
+.hljs-quote {
+  color: var(--code-comment);
+  font-style: italic;
+}
+
+.hljs-keyword,
+.hljs-selector-tag,
+.hljs-doctag,
+.hljs-formula {
+  color: var(--code-keyword);
+}
+
+.hljs-string,
+.hljs-regexp,
+.hljs-addition,
+.hljs-attribute,
+.hljs-meta .hljs-string {
+  color: var(--code-string);
+}
+
+.hljs-number,
+.hljs-literal,
+.hljs-variable,
+.hljs-template-variable,
+.hljs-type,
+.hljs-selector-class,
+.hljs-selector-attr,
+.hljs-selector-pseudo {
+  color: var(--code-number);
+}
+
+.hljs-title,
+.hljs-title.class_,
+.hljs-title.function_,
+.hljs-section,
+.hljs-name {
+  color: var(--code-function);
+  font-weight: 600;
+}
+
+.hljs-attr,
+.hljs-symbol,
+.hljs-bullet,
+.hljs-link,
+.hljs-params {
+  color: var(--code-attr);
+}
+
+.hljs-built_in,
+.hljs-class .hljs-title,
+.hljs-params .hljs-built_in {
+  color: var(--code-builtin);
+}
+
+.hljs-meta,
+.hljs-meta .hljs-keyword {
+  color: var(--code-comment);
+}
+
+.hljs-tag {
+  color: var(--code-tag);
+}
+
+.hljs-subst {
+  color: var(--code-variable);
+}
+
+.hljs-emphasis {
+  font-style: italic;
+}
+
+.hljs-strong {
+  font-weight: 700;
+}
+
+.hljs-deletion {
+  color: #d95c5c;
+  background: rgba(217, 92, 92, 0.1);
+}
+
+.hljs-addition {
+  color: var(--code-string);
+  background: rgba(46, 163, 107, 0.1);
+}
+
+/* 选中代码时的背景 */
+.markdown-body pre ::selection {
+  background: rgba(61, 139, 255, 0.3);
+}

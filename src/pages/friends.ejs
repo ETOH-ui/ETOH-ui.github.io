@@ -1,0 +1,39 @@
+<%
+  // 没有头像时用名字首字生成占位色块
+  const palette = ['#4a9eff', '#5bc0be', '#8b7cf6', '#f29a4a', '#e05c7a', '#4ecdc4'];
+  const pickColor = (name) => {
+    let h = 0;
+    for (let i = 0; i < name.length; i += 1) h = (h * 31 + name.charCodeAt(i)) % 997;
+    return palette[h % palette.length];
+  };
+  // 外链头像原样用，站内路径补上 base
+  const avatarSrc = (f) => {
+    if (!f.avatar) return '';
+    return /^(https?:)?\/\//.test(f.avatar) ? f.avatar : url(f.avatar);
+  };
+%>
+<div class="page-head">
+  <h1 class="page-title"><span class="page-title-mark">#</span> 大佬们</h1>
+  <p class="page-desc">
+    共 <%= friends.length %> 位大佬<span class="page-desc-dot">·</span><span class="friend-welcome">欢迎大佬们互换友链</span>
+  </p>
+</div>
+
+<div class="friend-grid">
+  <% friends.forEach(function (f) { %>
+    <a class="friend-card" href="<%= f.url %>" target="_blank" rel="noopener">
+      <% if (f.avatar) { %>
+        <img class="friend-avatar" src="<%= avatarSrc(f) %>" alt="<%= f.name %>" width="64" height="64" loading="lazy">
+      <% } else { %>
+        <span class="friend-avatar friend-avatar-fallback" style="--c: <%= pickColor(f.name) %>"><%= f.name.slice(0, 1).toUpperCase() %></span>
+      <% } %>
+      <span class="friend-info">
+        <span class="friend-name"><%= f.name %></span>
+        <span class="friend-desc"><%= f.desc || '这位朋友很神秘，什么也没留下' %></span>
+      </span>
+      <span class="friend-arrow">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><use href="#icon-external"></use></svg>
+      </span>
+    </a>
+  <% }); %>
+</div>

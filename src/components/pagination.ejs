@@ -1,0 +1,49 @@
+<%
+  const cur = page.current;
+  const total = page.total;
+  const pageUrl = (n) => (n === 1 ? url('/') : url(`/page/${n}/`));
+
+  // 最多显示 5 个页码，靠近两端时向中间补
+  const windowSize = 5;
+  let start = Math.max(1, cur - Math.floor(windowSize / 2));
+  let end = Math.min(total, start + windowSize - 1);
+  start = Math.max(1, end - windowSize + 1);
+
+  const nums = [];
+  for (let i = start; i <= end; i += 1) nums.push(i);
+%>
+<% if (total > 1) { %>
+<nav class="pagination" aria-label="分页">
+  <div class="page-side">
+    <% if (cur > 1) { %>
+      <a class="page-nav-text" href="<%= pageUrl(cur - 1) %>" rel="prev">« 上一页</a>
+    <% } %>
+  </div>
+
+  <div class="page-numbers">
+    <% if (start > 1) { %>
+      <a class="page-num" href="<%= pageUrl(1) %>">1</a>
+      <% if (start > 2) { %><span class="page-ellipsis">…</span><% } %>
+    <% } %>
+
+    <% nums.forEach(function (n) { %>
+      <% if (n === cur) { %>
+        <span class="page-num is-current" aria-current="page"><%= n %></span>
+      <% } else { %>
+        <a class="page-num" href="<%= pageUrl(n) %>"><%= n %></a>
+      <% } %>
+    <% }); %>
+
+    <% if (end < total) { %>
+      <% if (end < total - 1) { %><span class="page-ellipsis">…</span><% } %>
+      <a class="page-num" href="<%= pageUrl(total) %>"><%= total %></a>
+    <% } %>
+  </div>
+
+  <div class="page-side page-side-end">
+    <% if (cur < total) { %>
+      <a class="page-nav-text" href="<%= pageUrl(cur + 1) %>" rel="next">下一页 »</a>
+    <% } %>
+  </div>
+</nav>
+<% } %>

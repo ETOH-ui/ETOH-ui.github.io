@@ -1,0 +1,57 @@
+<%
+  const variantName = (typeof variant !== 'undefined' && variant) ? variant : 'side';
+  const currentPath = page && page.url ? page.url : '/';
+  // 抽屉里复用同一套组件，只多挂一个 class
+  const cardClass = variantName === 'drawer' ? 'sidebar sidebar-drawer' : 'sidebar';
+%>
+<div class="<%= cardClass %>">
+  <div class="sidebar-inner">
+    <a class="sidebar-avatar" href="<%= url('/about/') %>" aria-label="关于我">
+      <img src="<%= url(site.avatar) %>" alt="<%= site.author %>" width="100" height="100">
+    </a>
+
+    <div class="sidebar-name"><%= site.author %></div>
+    <% if (site.authorBio) { %>
+      <div class="sidebar-bio"><%= site.authorBio %></div>
+    <% } %>
+
+    <div class="sidebar-stats">
+      <a class="stat" href="<%= url('/archives/') %>">
+        <span class="stat-label">文章</span>
+        <span class="stat-value"><%= totalPosts %></span>
+      </a>
+      <span class="stat-divider" aria-hidden="true"></span>
+      <a class="stat" href="<%= url('/tags/') %>">
+        <span class="stat-label">标签</span>
+        <span class="stat-value"><%= totalTags %></span>
+      </a>
+    </div>
+
+    <nav class="sidebar-menu" aria-label="页面导航">
+      <% nav.forEach(function (item) { %>
+        <a class="menu-item<%= currentPath === item.path ? ' is-active' : '' %>" href="<%= url(item.path) %>">
+          <span class="menu-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#icon-<%= item.icon %>"></use></svg></span>
+          <span class="menu-text"><%= item.name %></span>
+        </a>
+      <% }); %>
+    </nav>
+
+    <% if (site.analytics && site.analytics.showSiteViews) { %>
+    <div class="sidebar-views" id="sidebar-views">
+      <span class="views-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#icon-eye"></use></svg></span>
+      <span class="views-label">总访问</span>
+      <span class="views-value" id="busuanzi_value_site_pv"><%= site.analytics.provider === 'none' ? '0' : '—' %></span>
+    </div>
+    <% } %>
+
+    <div class="sidebar-footer">
+      <%
+        const nowYear = new Date().getFullYear();
+        const yearText = site.since && site.since !== nowYear ? `${site.since}–${nowYear}` : String(nowYear);
+      %>
+      <span>© <%= yearText %></span>
+      <span>·</span>
+      <span><%= site.author %></span>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,12 @@
+node_modules/
+dist/
+.DS_Store
+Thumbs.db
+*.log
+.env
+.env.local
+
+# 编辑器
+.vscode/
+.idea/
+.build-manifest.json

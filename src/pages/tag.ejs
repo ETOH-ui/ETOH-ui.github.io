@@ -1,0 +1,15 @@
+<div class="page-head">
+  <p class="page-breadcrumb">
+    <a href="<%= url('/tags/') %>">标签</a>
+    <span>/</span>
+    <span><%= tag.name %></span>
+  </p>
+  <h1 class="page-title"><span class="page-title-mark">#</span> <%= tag.name %></h1>
+  <p class="page-desc">共 <%= list.length %> 篇文章</p>
+</div>
+
+<div class="post-list">
+  <% list.forEach(function (post) { %>
+    <%- include('../components/post-card', { post: post }) %>
+  <% }); %>
+</div>

@@ -1,0 +1,72 @@
+<article class="article">
+  <div class="article-meta">
+    <span class="meta-item">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><use href="#icon-calendar"></use></svg>
+      <time datetime="<%= post.dateStr %>"><%= post.dateStr %></time>
+    </span>
+    <span class="meta-item">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><use href="#icon-pencil"></use></svg>
+      <%= post.words %> 字
+    </span>
+    <span class="meta-item">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><use href="#icon-clock"></use></svg>
+      <%= post.minutes %> 分钟
+    </span>
+    <% if (site.analytics && site.analytics.showPostViews) { %>
+      <span class="meta-item">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><use href="#icon-eye"></use></svg>
+        <span id="busuanzi_value_page_pv"><%= site.analytics.provider === 'none' ? '0' : '—' %></span>
+      </span>
+    <% } %>
+  </div>
+
+  <% if (post.tags.length || post.categories.length) { %>
+    <div class="article-tags">
+      <% post.categories.forEach(function (c) { %>
+        <span class="tag-chip tag-chip-cat"><%= c %></span>
+      <% }); %>
+      <% post.tags.forEach(function (t) { %>
+        <a class="tag-chip" href="<%= url('/tags/' + tagSlug(t) + '/') %>"># <%= t %></a>
+      <% }); %>
+    </div>
+  <% } %>
+
+  <div class="markdown-body" id="article-content">
+    <%- post.html %>
+  </div>
+</article>
+
+<% if (prev || next) { %>
+<nav class="article-nav" aria-label="文章导航">
+  <% if (prev) { %>
+    <a class="article-nav-item article-nav-prev" href="<%= url(prev.url) %>">
+      <span class="article-nav-label">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><use href="#icon-arrow-left"></use></svg>
+        上一篇
+      </span>
+      <span class="article-nav-title"><%= prev.title %></span>
+    </a>
+  <% } else { %>
+    <span class="article-nav-item is-empty"></span>
+  <% } %>
+
+  <% if (next) { %>
+    <a class="article-nav-item article-nav-next" href="<%= url(next.url) %>">
+      <span class="article-nav-label">
+        下一篇
+        <svg viewBox="0 0 24 24" aria-hidden="true"><use href="#icon-arrow-right"></use></svg>
+      </span>
+      <span class="article-nav-title"><%= next.title %></span>
+    </a>
+  <% } else { %>
+    <span class="article-nav-item is-empty"></span>
+  <% } %>
+</nav>
+<% } %>
+
+<p class="article-back">
+  <a href="<%= url('/') %>">
+    <svg viewBox="0 0 24 24" aria-hidden="true"><use href="#icon-arrow-left"></use></svg>
+    返回首页
+  </a>
+</p>

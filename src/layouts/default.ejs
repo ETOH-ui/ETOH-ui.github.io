@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="<%= site.lang %>" data-theme="light" data-mode="<%= theme.defaultMode %>">
+<head>
+  <%- include('../components/head') %>
+</head>
+<body class="page-<%= (page && page.type) || 'index' %>">
+  <%- include('../components/icons') %>
+
+  <div id="loader" aria-hidden="true">
+    <div class="loader-panel loader-panel-left"></div>
+    <div class="loader-panel loader-panel-right"></div>
+    <div class="loader-center">
+      <div class="loader-ring">
+        <span></span><span></span><span></span>
+      </div>
+      <p class="loader-text">正在把拼图拼起来…</p>
+    </div>
+  </div>
+
+  <%- include('../components/header') %>
+
+  <%
+    // 关于页左边已经有一张信息卡了，右侧边栏就收起来，免得三栏挤在一起
+    const showSidebar = !(page && page.type === 'about');
+  %>
+  <div id="content" class="sidebar-<%= theme.sidebarPosition %><%= showSidebar ? '' : ' no-sidebar' %>">
+    <% if (showSidebar) { %>
+      <aside id="sidebar" aria-label="站点信息">
+        <%
+          const hasToc = post && post.headings && post.headings.length > 0;
+        %>
+        <% if (hasToc) { %>
+          <div class="side-switch" id="side-switch" role="tablist" aria-label="侧边栏切换">
+            <button type="button" class="switch-btn" data-panel="nav" role="tab" aria-selected="false" aria-label="导航">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><use href="#icon-home"></use></svg>
+            </button>
+            <button type="button" class="switch-btn is-active" data-panel="toc" role="tab" aria-selected="true" aria-label="目录">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><use href="#icon-branch"></use></svg>
+            </button>
+          </div>
+        <% } %>
+
+        <div class="side-panel" data-panel="nav"<%= hasToc ? ' hidden' : '' %>>
+          <%- include('../components/sidebar', { variant: 'side' }) %>
+        </div>
+
+        <% if (hasToc) { %>
+          <div class="side-panel" data-panel="toc">
+            <%- include('../components/toc', { headings: post.headings }) %>
+          </div>
+        <% } %>
+      </aside>
+    <% } %>
+    <main id="main">
+      <%- body %>
+    </main>
+  </div>
+
+  <%- include('../components/footer') %>
+
+  <!-- 移动端抽屉 -->
+  <div id="drawer-mask" class="overlay" hidden></div>
+  <div id="drawer" aria-hidden="true" aria-label="导航菜单">
+    <button id="drawer-close" type="button" aria-label="关闭菜单">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><use href="#icon-close"></use></svg>
+    </button>
+    <%- include('../components/sidebar', { variant: 'drawer' }) %>
+  </div>
+
+  <!-- 搜索 -->
+  <div id="search-panel" class="overlay" hidden>
+    <div class="search-box" role="dialog" aria-modal="true" aria-label="搜索文章">
+      <div class="search-input-wrap">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><use href="#icon-search"></use></svg>
+        <input id="search-input" type="search" placeholder="搜索标题、标签、摘要…" autocomplete="off" spellcheck="false">
+        <button id="search-close" type="button" aria-label="关闭搜索">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><use href="#icon-close"></use></svg>
+        </button>
+      </div>
+      <div id="search-results" class="search-results">
+        <p class="search-hint">输入关键词开始搜索</p>
+      </div>
+      <div class="search-footer">
+        <span><kbd>↑</kbd><kbd>↓</kbd> 选择</span>
+        <span><kbd>Enter</kbd> 打开</span>
+        <span><kbd>Esc</kbd> 关闭</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- 图片灯箱 -->
+  <div id="lightbox" class="overlay" hidden>
+    <button id="lightbox-close" type="button" aria-label="关闭">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><use href="#icon-close"></use></svg>
+    </button>
+    <figure class="lightbox-figure">
+      <img id="lightbox-img" src="" alt="">
+      <figcaption id="lightbox-caption"></figcaption>
+    </figure>
+  </div>
+
+  <% if (theme.readProgress && page && page.type === 'post') { %>
+    <div id="read-progress" aria-hidden="true"><span></span></div>
+  <% } %>
+
+  <script>window.__SITE__ = { base: "<%= site.base %>", title: "<%= site.title %>" };</script>
+  <script src="<%= url('/js/main.js') %>" defer></script>
+
+  <% if (site.analytics && site.analytics.provider === 'busuanzi') { %>
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+  <% } else if (site.analytics && site.analytics.provider === 'goatcounter' && site.analytics.goatcounterCode) { %>
+    <script data-goatcounter="https://<%= site.analytics.goatcounterCode %>.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+  <% } else if (site.analytics && site.analytics.provider === 'umami' && site.analytics.umamiScriptUrl) { %>
+    <script async src="<%= site.analytics.umamiScriptUrl %>" data-website-id="<%= site.analytics.umamiWebsiteId %>"></script>
+  <% } %>
+</body>
+</html>

@@ -1,0 +1,43 @@
+<%
+  const eager = typeof post.index !== 'undefined' && post.index < 2;
+%>
+<article class="post-card post-card-<%= post.side %>" data-post-card>
+  <a class="post-card-link" href="<%= url(post.url) %>" aria-label="<%= post.title %>"></a>
+
+  <div class="post-cover<%= post.cover ? '' : ' post-cover-empty' %>">
+    <span class="cover-fallback"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#icon-tag"></use></svg></span>
+    <% if (post.cover) { %>
+      <img src="<%= post.cover %>" alt="<%= post.title %>" width="640" height="400"
+           loading="<%= eager ? 'eager' : 'lazy' %>" decoding="async" draggable="false"
+           onerror="this.remove()">
+    <% } %>
+  </div>
+
+  <div class="post-body">
+    <div class="post-meta">
+      <span class="meta-item">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><use href="#icon-calendar"></use></svg>
+        <%= post.dateStr %>
+      </span>
+      <span class="meta-item">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><use href="#icon-pencil"></use></svg>
+        <%= post.words %> 字
+      </span>
+      <span class="meta-item">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><use href="#icon-clock"></use></svg>
+        <%= post.minutes %> 分钟
+      </span>
+    </div>
+
+    <h2 class="post-title"><%= post.title %></h2>
+    <p class="post-excerpt"><%= post.summary %></p>
+
+    <% if (post.tags.length) { %>
+      <div class="post-tags">
+        <% post.tags.slice(0, 3).forEach(function (t) { %>
+          <span class="tag-chip"><%= t %></span>
+        <% }); %>
+      </div>
+    <% } %>
+  </div>
+</article>
