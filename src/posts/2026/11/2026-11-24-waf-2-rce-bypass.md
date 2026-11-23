@@ -4,7 +4,7 @@ date: 2026-11-24 00:30:00
 tags: [WAF, 命令注入]
 categories: [学绕过WAF]
 cover: ./waf-2-rce-bypass/cover.webp
-summary: 照着大佬关于 RCE 绕 WAF 的清单在 DVWA 上逐个复现：未初始化变量、通配符、引号拼接、垃圾数据填充四种都绕过了雷池，$* 空变量原作者也没能复现。
+summary: 照着大佬关于 RCE 绕 WAF 的清单在 DVWA 上逐个复现：未初始化变量、通配符、引号拼接、垃圾数据填充四种都绕过了雷池，$* 空变量我这个小白也没能复现。
 draft: false
 ---
 ## 先要 : 基于大佬文章[bypass waf测试_rce](https://www.cnblogs.com/xiaoxin07/p/18502670#%E7%BC%96%E7%A0%81%E7%BB%95%E8%BF%87)在dvwa的复现尝试
