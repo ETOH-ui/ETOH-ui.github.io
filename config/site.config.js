@@ -19,8 +19,8 @@ export default {
   keywords: ['博客', '笔记', '前端', '安全'],
   lang: 'zh-CN',
 
-  // 部署地址，同时用于 sitemap 的绝对链接
-  url: 'https://ETOH-ui.github.io',
+  // 部署地址，同时用于 sitemap 和分享卡片的绝对链接
+  url: 'https://blog.jianshuqv.cn',
   // 站点根路径。仓库名是 ETOH-ui.github.io 时保持 '/'；若是子路径仓库改成 '/仓库名/'
   base: '/',
 
