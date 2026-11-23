@@ -11,6 +11,15 @@ import path from 'node:path';
 import http from 'node:http';
 import ejs from 'ejs';
 import matter from 'gray-matter';
+import yaml from 'js-yaml';
+
+// gray-matter 默认用完整 YAML schema，会把 `2026-11-23 19:30:00` 解析成 UTC 的 Date 对象，
+// 本地时区一读就往后跳 8 小时（19:30 写成 11-24）。改用 JSON_SCHEMA 让日期保持原字符串。
+const MATTER_OPTIONS = {
+  engines: {
+    yaml: (raw) => yaml.load(raw, { schema: yaml.JSON_SCHEMA }) || {}
+  }
+};
 
 import site from '../config/site.config.js';
 import theme from '../config/theme.config.js';
@@ -106,7 +115,7 @@ async function loadPosts() {
 
   for (const file of files) {
     const raw = await fs.readFile(file, 'utf8');
-    const { data, content } = matter(raw);
+    const { data, content } = matter(raw, MATTER_OPTIONS);
 
     if (data.draft === true) continue;
 
@@ -339,7 +348,7 @@ async function buildStaticPages(data) {
   let aboutHtml = '';
   if (await fsu.exists(aboutFile)) {
     const raw = await fs.readFile(aboutFile, 'utf8');
-    const { content } = matter(raw);
+    const { content } = matter(raw, MATTER_OPTIONS);
     aboutHtml = renderMarkdown(content).html;
   }
   const about = await renderPage('pages/about.ejs', {
